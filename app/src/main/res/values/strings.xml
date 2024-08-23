@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">HeyCowJetpackCompose</string>
+    <string name="title_activity_compose_app">ComposeApp</string>
+    <string name="title_activity_login_screen">LoginScreen</string>
+</resources>
