@@ -230,7 +230,11 @@ fun ResultScreen(
 
                             ResultField(label = "Name", value = nama, iconResId = R.drawable.person_fill)
                             ResultField(label = "NIM", value = nim, iconResId = R.drawable.person_vcard_fill)
-                            ResultField(label = "Gender", value = gender, iconResId = R.drawable.gender_male)
+                            ResultField(
+                                label = "Gender",
+                                value = gender,
+                                iconResId = if (gender == "Male") R.drawable.gender_male else R.drawable.gender_female
+                            )
                             ResultField(label = "Jumlah Saudara", value = saudara)
                             ResultField(label = "Uang Saku", value = uangSaku)
 
