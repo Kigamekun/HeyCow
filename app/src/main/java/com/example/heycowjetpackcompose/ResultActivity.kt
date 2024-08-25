@@ -78,7 +78,7 @@ fun ResultScreen(
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
-                .background(Color(0xFFF8F9FA)),
+                .background(Color(0xFFFF1BA57B)),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             item {
@@ -99,11 +99,11 @@ fun ResultScreen(
                     }
 
                     Card(
-                        shape = RoundedCornerShape(topStart = 10.dp, topEnd = 10.dp),
+                        shape = RoundedCornerShape(topStart = 40.dp, topEnd = 40.dp), // Set rounded corners
                         colors = CardDefaults.cardColors(containerColor = Color.White),
                         modifier = Modifier
                             .fillMaxSize()
-                            .padding(top = 100.dp)
+                            .padding(top = 0.dp)
                             .constrainAs(resultCard) {
                                 top.linkTo(header.bottom)
                                 start.linkTo(parent.start)
@@ -122,27 +122,10 @@ fun ResultScreen(
                             ResultField(label = "Gender", value = gender)
                             ResultField(label = "Saudara", value = saudara)
                             ResultField(label = "Uang Saku", value = uangSaku)
+
                         }
                     }
 
-                    Button(
-                        onClick = { onBackPressed() },
-                        modifier = Modifier
-                            .padding(16.dp)
-                            .constrainAs(backButton) {
-                                top.linkTo(resultCard.bottom)
-                                start.linkTo(parent.start)
-                                end.linkTo(parent.end)
-                            },
-                        shape = RoundedCornerShape(16.dp),
-                        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF1BA57B))
-                    ) {
-                        Text(
-                            text = "Back",
-                            color = Color.White,
-                            style = MaterialTheme.typography.labelLarge
-                        )
-                    }
                 }
             }
         }
