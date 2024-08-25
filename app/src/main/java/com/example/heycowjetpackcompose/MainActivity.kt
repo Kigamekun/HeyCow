@@ -32,21 +32,17 @@ import com.example.heycowjetpackcompose.ui.LoginScreen
 import java.util.Objects;
 
 class MainActivity : ComponentActivity() {
-    private val tDelay = 3000L // Delay in milliseconds
-    private var splashScreenShown = false // Flag to check if splash screen is shown
+    private val tDelay = 3000L
+    private var splashScreenShown = false
 
     private val resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
             val data = result.data
-            // Retrieve data from ResultActivity
             val nama = data?.getStringExtra("NAMA") ?: ""
             val nim = data?.getStringExtra("NIM") ?: ""
             val gender = data?.getStringExtra("GENDER") ?: ""
             val saudara = data?.getStringExtra("SAUDARA") ?: ""
             val uangSaku = data?.getStringExtra("UANG_SAKU") ?: ""
-
-            // Update your form fields with the returned data
-            // (You will need to store these values in the state and use them in your composable form)
         }
     }
 
@@ -75,11 +71,10 @@ class MainActivity : ComponentActivity() {
             v.setPadding(systemBarsInsets.left, systemBarsInsets.top, systemBarsInsets.right, systemBarsInsets.bottom)
             insets
         }
-
         Handler().postDelayed({
             splashView.animate()
-                .translationY(-splashView.height.toFloat())  // Slide up the view
-                .setDuration(500)                          // Animation duration
+                .translationY(-splashView.height.toFloat())
+                .setDuration(500)
                 .withEndAction {
                     splashScreenShown = true
                     setContent {

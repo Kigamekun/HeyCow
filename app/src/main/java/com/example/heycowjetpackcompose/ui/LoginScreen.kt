@@ -2,21 +2,16 @@ package com.example.heycowjetpackcompose.ui
 
 import android.content.Context
 import android.content.Intent
-import android.os.Bundle
-import androidx.activity.ComponentActivity
 import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.compose.setContent
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.heycowjetpackcompose.ui.ui.theme.HeyCowJetpackComposeTheme
 import androidx.compose.foundation.clickable
 
 import androidx.compose.foundation.Image
@@ -30,14 +25,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.res.fontResource
 import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -47,20 +39,14 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.input.OffsetMapping
-import androidx.compose.ui.text.input.TransformedText
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.example.heycowjetpackcompose.R
 import com.example.heycowjetpackcompose.ResultActivity
-import java.text.DecimalFormat
 
 @Composable
 fun LoginScreen(context: Context, resultLauncher: ActivityResultLauncher<Intent>) {
@@ -108,7 +94,6 @@ fun LoginScreen(context: Context, resultLauncher: ActivityResultLauncher<Intent>
                                 .fillMaxSize()
                                 .padding(30.dp)
                         ) {
-
                             val loginText = "Gabung dan Awasi Kesehatan Ternak Anda!"
                             val loginAnnotatedString = buildAnnotatedString {
                                 append(loginText)
@@ -145,7 +130,6 @@ fun LoginScreen(context: Context, resultLauncher: ActivityResultLauncher<Intent>
                                     end = loginText.length // Sisanya
                                 )
                             }
-
                             Text(
                                 modifier = Modifier
                                     .fillMaxWidth()
@@ -159,7 +143,6 @@ fun LoginScreen(context: Context, resultLauncher: ActivityResultLauncher<Intent>
                                 style = MaterialTheme.typography.bodyLarge.copy(color = Color(0xFF757575)),
                                 modifier = Modifier.padding(bottom = 10.dp, top = 10.dp)
                             )
-
                             CustomStyleTextField(
                                 "Nama",
                                 R.drawable.person_fill,
@@ -168,7 +151,6 @@ fun LoginScreen(context: Context, resultLauncher: ActivityResultLauncher<Intent>
                                 value = nama,
                                 onValueChange = { nama = it }
                             )
-
                             Text(
                                 text = "NIM",
                                 style = MaterialTheme.typography.bodyLarge.copy(color = Color(0xFF757575)),
@@ -212,7 +194,6 @@ fun LoginScreen(context: Context, resultLauncher: ActivityResultLauncher<Intent>
                                 modifier = Modifier.fillMaxWidth(),
                                 horizontalArrangement = Arrangement.spacedBy(16.dp)
                             ) {
-
                                 CustomTextField(
                                     placeHolder = "Jml Saudara",
                                     keyboardType = KeyboardType.Number,
@@ -238,7 +219,6 @@ fun LoginScreen(context: Context, resultLauncher: ActivityResultLauncher<Intent>
                                     }
                                 )
                             }
-
                             Button(
                                 onClick = {
                                     val intent = Intent(context, ResultActivity::class.java).apply {
@@ -285,7 +265,6 @@ fun CustomStyleTextField(
     value : String,
     onValueChange: (String) -> Unit
 ) {
-
     OutlinedTextField(
         modifier = Modifier
             .fillMaxWidth()
@@ -310,7 +289,6 @@ fun CustomStyleTextField(
                     Canvas(
                         modifier = Modifier.height(24.dp)
                     ) {
-                        // Allows you to draw a line between two points (p1 & p2) on the canvas.
                         drawLine(
                             color = Color.LightGray,
                             start = Offset(0f, 0f),
