@@ -13,13 +13,22 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.example.heycowjetpackcompose.ui.HeaderView
 import com.example.heycowjetpackcompose.ui.theme.HeyCowJetpackComposeTheme
@@ -109,6 +118,36 @@ fun ResultScreen(
     uangSaku: String,
     onBackPressed: () -> Unit
 ) {
+
+    var showDialog by remember { mutableStateOf(false) }
+
+    // Create the message to be displayed in the AlertDialog
+    val confirmationMessage = """
+        Name: $nama
+        NIM: $nim
+        Gender: $gender
+        Jumlah Saudara: $saudara
+        Uang Saku: $uangSaku
+    """.trimIndent()
+
+    if (showDialog) {
+        AlertDialog(
+            onDismissRequest = { showDialog = false },
+            confirmButton = {
+                TextButton(onClick = { showDialog = false }) {
+                    Text("OK")
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { showDialog = false }) {
+                    Text("Cancel")
+                }
+            },
+            title = { Text(text = "Confirm Information") },
+            text = { Text(text = confirmationMessage) }
+        )
+    }
+
     MaterialTheme {
         LazyColumn(
             modifier = Modifier.fillMaxSize(),
@@ -151,11 +190,42 @@ fun ResultScreen(
                                 .padding(30.dp)
                         ) {
 
+                            val loginText = "Konfirmasi Data Anda"
+                            val loginAnnotatedString = buildAnnotatedString {
+                                append(loginText)
+                                addStyle(
+                                    style = SpanStyle(
+                                        color = Color(0xFFFF1BA57B),
+                                        fontFamily = FontFamily(Font(R.font.helvetica_neue_medium))
+                                    ),
+                                    start = 11, // Posisi awal kata "Data"
+                                    end = 16 // Panjang kata "Data"
+                                )
+                                addStyle(
+                                    style = SpanStyle(
+                                        color = Color(0xFF757575),
+                                        fontFamily = FontFamily(Font(R.font.helvetica_neue_regular))
+                                    ),
+                                    start = 0,
+                                    end = 11 // Posisi dari "Konfirmasi"
+                                )
+                                addStyle(
+                                    style = SpanStyle(
+                                        color = Color(0xFF757575),
+                                        fontFamily = FontFamily(Font(R.font.helvetica_neue_regular))
+                                    ),
+                                    start = 16,
+                                    end = loginText.length // Sisanya
+                                )
+                            }
+
                             Text(
-                                text = "Konfirmasi Data",
-                                style = MaterialTheme.typography.titleLarge,
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(top = 0.dp, bottom = 0.dp),
+                                text = loginAnnotatedString,
                                 textAlign = TextAlign.Center,
-                                modifier = Modifier.padding(bottom = 16.dp)
+                                fontSize = 20.sp,
                             )
 
                             ResultField(label = "Name", value = nama, iconResId = R.drawable.person_fill)
@@ -164,20 +234,39 @@ fun ResultScreen(
                             ResultField(label = "Jumlah Saudara", value = saudara)
                             ResultField(label = "Uang Saku", value = uangSaku)
 
-
-                            Button(
-                                onClick = onBackPressed,
+                            // Row to hold the Back and Submit buttons side by side
+                            Row(
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .padding(top = 16.dp),
-                                shape = MaterialTheme.shapes.medium,
-                                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF1BA57B))
+                                horizontalArrangement = Arrangement.spacedBy(8.dp)  // Add spacing between the buttons
                             ) {
-                                Text(
-                                    text = "Back"
-                                )
-                            }
+                                Button(
+                                    onClick = onBackPressed,
+                                    modifier = Modifier.weight(1f),  // Ensure equal width for both buttons
+                                    shape = MaterialTheme.shapes.medium,
+                                    colors = ButtonDefaults.buttonColors(
+                                        containerColor = Color(
+                                            0xFFFF1BA57B
+                                        )
+                                    )
+                                ) {
+                                    Text(text = "Back")
+                                }
 
+                                Button(
+                                    onClick = { showDialog = true },
+                                    modifier = Modifier.weight(1f),  // Ensure equal width for both buttons
+                                    shape = MaterialTheme.shapes.medium,
+                                    colors = ButtonDefaults.buttonColors(
+                                        containerColor = Color(
+                                            0xFFFF1BA57B
+                                        )
+                                    )  // Green color for submit
+                                ) {
+                                    Text(text = "Submit")
+                                }
+                            }
                         }
                     }
                 }
@@ -204,11 +293,11 @@ fun ResultField(label: String, value: String) {
 fun PreviewResultScreen() {
     HeyCowJetpackComposeTheme {
         ResultScreen(
-            nama = "John Doe",
-            nim = "123456789",
+            nama = "Aditya Rieyza Munif",
+            nim = "J0403231046",
             gender = "Male",
-            saudara = "2",
-            uangSaku = "1000",
+            saudara = "3",
+            uangSaku = "100000",
             onBackPressed = {}
         )
     }
