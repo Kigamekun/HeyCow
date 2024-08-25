@@ -278,6 +278,7 @@ fun CustomStyleTextField(
                 modifier = Modifier.wrapContentWidth(),
                 verticalAlignment = Alignment.CenterVertically,
                 content = {
+
                     Image(
                         modifier = Modifier
                             .padding(start = 10.dp, end = 10.dp)
