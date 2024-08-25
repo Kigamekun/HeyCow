@@ -198,16 +198,8 @@ fun ResultScreen(
                                         color = Color(0xFFFF1BA57B),
                                         fontFamily = FontFamily(Font(R.font.helvetica_neue_medium))
                                     ),
-                                    start = 0,
-                                    end = 0 // Panjang kata "Gabung"
-                                )
-                                addStyle(
-                                    style = SpanStyle(
-                                        color = Color(0xFFFF1BA57B),
-                                        fontFamily = FontFamily(Font(R.font.helvetica_neue_medium))
-                                    ),
-                                    start = 11, // Posisi awal kata "Awasi"
-                                    end = 16 // Panjang kata "Awasi"
+                                    start = 11, // Posisi awal kata "Data"
+                                    end = 16 // Panjang kata "Data"
                                 )
                                 addStyle(
                                     style = SpanStyle(
@@ -215,7 +207,7 @@ fun ResultScreen(
                                         fontFamily = FontFamily(Font(R.font.helvetica_neue_regular))
                                     ),
                                     start = 0,
-                                    end = 11 // Posisi dari " dan "
+                                    end = 11 // Posisi dari "Konfirmasi"
                                 )
                                 addStyle(
                                     style = SpanStyle(
@@ -301,11 +293,11 @@ fun ResultField(label: String, value: String) {
 fun PreviewResultScreen() {
     HeyCowJetpackComposeTheme {
         ResultScreen(
-            nama = "John Doe",
-            nim = "123456789",
+            nama = "Aditya Rieyza Munif",
+            nim = "J0403231046",
             gender = "Male",
-            saudara = "2",
-            uangSaku = "1000",
+            saudara = "3",
+            uangSaku = "100000",
             onBackPressed = {}
         )
     }
