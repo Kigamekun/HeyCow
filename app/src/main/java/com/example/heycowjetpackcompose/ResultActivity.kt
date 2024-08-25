@@ -14,9 +14,20 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
+import com.example.heycowjetpackcompose.ui.CustomStyleTextField
+import com.example.heycowjetpackcompose.ui.CustomTextField
+import com.example.heycowjetpackcompose.ui.GenderCard
 import com.example.heycowjetpackcompose.ui.HeaderView
 import com.example.heycowjetpackcompose.ui.theme.HeyCowJetpackComposeTheme
 
@@ -76,56 +87,70 @@ fun ResultScreen(
 ) {
     MaterialTheme {
         LazyColumn(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(Color(0xFFFF1BA57B)),
+            modifier = Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             item {
                 ConstraintLayout {
-                    val (header, resultCard, backButton) = createRefs()
-
+                    val (image, loginForm) = createRefs()
                     Box(
                         contentAlignment = Alignment.Center,
                         modifier = Modifier
                             .height(280.dp)
-                            .constrainAs(header) {
-                                top.linkTo(parent.top)
+                            .constrainAs(image) {
+                                top.linkTo(loginForm.top)
+                                bottom.linkTo(loginForm.top)
                                 start.linkTo(parent.start)
                                 end.linkTo(parent.end)
-                            }
-                    ) {
+                            }) {
                         HeaderView()
                     }
-
                     Card(
-                        shape = RoundedCornerShape(topStart = 40.dp, topEnd = 40.dp), // Set rounded corners
-                        colors = CardDefaults.cardColors(containerColor = Color.White),
+                        shape = RoundedCornerShape(topStart = 40.dp, topEnd = 40.dp),
+                        colors = CardDefaults.cardColors(containerColor = Color(0xFFF8F9FA)),
                         modifier = Modifier
                             .fillMaxSize()
-                            .padding(top = 0.dp)
-                            .constrainAs(resultCard) {
-                                top.linkTo(header.bottom)
+                            .padding(top = 100.dp)
+                            .constrainAs(loginForm) {
+                                bottom.linkTo(parent.bottom)
                                 start.linkTo(parent.start)
                                 end.linkTo(parent.end)
-                            }
+                            },
                     ) {
                         Column(
                             modifier = Modifier
                                 .fillMaxSize()
                                 .padding(30.dp)
                         ) {
-                            Spacer(modifier = Modifier.height(16.dp))
 
-                            ResultField(label = "Nama", value = nama)
-                            ResultField(label = "NIM", value = nim)
+                            Text(
+                                text = "Konfirmasi Data",
+                                style = MaterialTheme.typography.titleLarge,
+                                textAlign = TextAlign.Center,
+                                modifier = Modifier.padding(bottom = 16.dp)
+                            )
+
+                            ResultField("Name", nama)
+                            ResultField("NIM", nim)
                             ResultField(label = "Gender", value = gender)
-                            ResultField(label = "Saudara", value = saudara)
+                            ResultField(label = "Jumlah Saudara", value = saudara)
                             ResultField(label = "Uang Saku", value = uangSaku)
+
+                            Button(
+                                onClick = onBackPressed,
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(top = 16.dp),
+                                shape = MaterialTheme.shapes.medium,
+                                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF1BA57B))
+                            ) {
+                                Text(
+                                    text = "Back"
+                                )
+                            }
 
                         }
                     }
-
                 }
             }
         }
