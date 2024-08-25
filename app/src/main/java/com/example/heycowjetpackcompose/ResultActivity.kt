@@ -5,6 +5,8 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -14,20 +16,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
-import com.example.heycowjetpackcompose.ui.CustomStyleTextField
-import com.example.heycowjetpackcompose.ui.CustomTextField
-import com.example.heycowjetpackcompose.ui.GenderCard
 import com.example.heycowjetpackcompose.ui.HeaderView
 import com.example.heycowjetpackcompose.ui.theme.HeyCowJetpackComposeTheme
 
@@ -35,6 +28,7 @@ class ResultActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
         setContent {
             val nama = intent.getStringExtra("NAMA") ?: "Default Value"
             val nim = intent.getStringExtra("NIM") ?: "Default Value"
@@ -77,6 +71,36 @@ class ResultActivity : ComponentActivity() {
 }
 
 @Composable
+fun ResultField(label: String, value: String, iconResId: Int) {
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier.padding(vertical = 8.dp) // Adjust padding as needed
+    ) {
+        // Add the Image composable to display the icon
+        Image(
+            painter = painterResource(id = iconResId),
+            contentDescription = "$label icon",
+            modifier = Modifier
+                .size(24.dp) // Set the size of the icon
+                .padding(end = 8.dp) // Add some padding between the icon and the text
+        )
+
+        Column {
+            Text(
+                text = "$label:",
+                style = MaterialTheme.typography.labelLarge.copy(color = Color(0xFF757575))
+            )
+            Text(
+                text = value,
+                style = MaterialTheme.typography.bodyLarge.copy(color = Color.Black)
+            )
+        }
+    }
+    Divider(modifier = Modifier.padding(vertical = 8.dp))
+}
+
+
+@Composable
 fun ResultScreen(
     nama: String,
     nim: String,
@@ -93,6 +117,8 @@ fun ResultScreen(
             item {
                 ConstraintLayout {
                     val (image, loginForm) = createRefs()
+
+                    // Reuse HeaderView composable for the logo and header
                     Box(
                         contentAlignment = Alignment.Center,
                         modifier = Modifier
@@ -102,9 +128,11 @@ fun ResultScreen(
                                 bottom.linkTo(loginForm.top)
                                 start.linkTo(parent.start)
                                 end.linkTo(parent.end)
-                            }) {
-                        HeaderView()
+                            }
+                    ) {
+                        HeaderView()  // Include the logo and header image here
                     }
+
                     Card(
                         shape = RoundedCornerShape(topStart = 40.dp, topEnd = 40.dp),
                         colors = CardDefaults.cardColors(containerColor = Color(0xFFF8F9FA)),
@@ -130,11 +158,12 @@ fun ResultScreen(
                                 modifier = Modifier.padding(bottom = 16.dp)
                             )
 
-                            ResultField("Name", nama)
-                            ResultField("NIM", nim)
-                            ResultField(label = "Gender", value = gender)
+                            ResultField(label = "Name", value = nama, iconResId = R.drawable.person_fill)
+                            ResultField(label = "NIM", value = nim, iconResId = R.drawable.person_vcard_fill)
+                            ResultField(label = "Gender", value = gender, iconResId = R.drawable.gender_male)
                             ResultField(label = "Jumlah Saudara", value = saudara)
                             ResultField(label = "Uang Saku", value = uangSaku)
+
 
                             Button(
                                 onClick = onBackPressed,
