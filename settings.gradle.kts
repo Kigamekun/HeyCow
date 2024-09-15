@@ -13,5 +13,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "HeyCowJetpackCompose"
+rootProject.name = "SubmissionCompose"
 include(":app")

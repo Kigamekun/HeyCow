@@ -1,5 +1,6 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Theme.HeyCowJetpackCompose" parent="android:Theme.Material.Light.NoActionBar" />
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.SubmissionCompose" parent="android:Theme.Material.Light.NoActionBar" />
 
 </resources>
